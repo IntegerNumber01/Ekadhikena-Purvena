@@ -34,26 +34,26 @@ def main(num1, num2):
 
     # Average between the 2 highest places
     # The -1 as the second parameter in round rounds like this: 42->40, 56->60
-    base = int(round((int(num1) + int(num2)) / 2, -1))
+    base = int(round((num1 + num2) / 2, -1))
     if base == 0:
         return 'Formula Not Applicable'
 
-    if int(num1) < base:
+    if num1 < base:
         # part 1 method
-        right1 = base - int(num1)
+        right1 = base - num1
         sign1 = operator.sub
     else:
         # Use part 2 method
-        right1 = int(num1) - base
+        right1 = num1 - base
         sign1 = operator.add
 
-    if int(num2) < base:
+    if num2 < base:
         # part 1 method
-        right2 = base - int(num2)
+        right2 = base - num2
         sign2 = operator.sub
     else:
         # Use part 2 method
-        right2 = int(num2) - base
+        right2 = num2 - base
         sign2 = operator.add
 
     right_ans = main(right1, right2)
@@ -62,7 +62,8 @@ def main(num1, num2):
     if right_ans == 'Formula Not Applicable':
         return right_ans
 
-    if not (is_tenth_power(base) and {sign1, sign2} == {operator.sub, operator.sub}):
+    # If something DOESNT fully fall under part 1, then multiply the extra thing
+    if not (is_tenth_power(base) and {sign1, sign2} == {operator.sub}):
         left_ans = main(left_ans, int(base / 10))
         if left_ans == 'Formula Not Applicable':
             return left_ans
@@ -79,7 +80,7 @@ def main(num1, num2):
             left_ans -= 1
             right_ans = 10 - right_ans
 
-    elif sign1 == operator.sub and sign2 == operator.sub:
+    elif {sign1, sign2} == {operator.sub}:
         # Carrying
         if (right_ans >= 10 and is_tenth_power(base) is False) or (num1 < 10 and num2 < 10):
             left_ans += math.floor(right_ans / 10)
@@ -89,9 +90,8 @@ def main(num1, num2):
         while len(str(right_ans)) < zeros:
             right_ans = '0' + str(right_ans)
     else:
-        zeros = len(str(num1)) - 1
         # Carrying
-        left_ans += math.floor(right_ans/10)
+        left_ans += math.floor(right_ans / 10)
         right_ans = int(str(right_ans)[-1])
 
     return int(str(left_ans) + str(right_ans))
@@ -111,15 +111,15 @@ multiple_table = [[0, 0, 0, 0, 0, 0],
 # print(main(94, 98))
 # exit()
 # ## Manual Testing ##
-num1 = 8
-num2 = 2
+# num1 = 8
+# num2 = 2
 
-try:
-    ANS = main(num1, num2)
-    print('ANSWER:  ', ANS)
-    print('IS IT CORRECT?', int(ANS) == num1 * num2)
-except RecursionError:
-    print('ERROR: ', num1, 'x', num2)
+# try:
+#     ANS = main(num1, num2)
+#     print('ANSWER:  ', ANS)
+#     print('IS IT CORRECT?', int(ANS) == num1 * num2)
+# except RecursionError:
+#     print('ERROR: ', num1, 'x', num2)
 
 # exit()
 ## Exahaustive check for equations solved ##
