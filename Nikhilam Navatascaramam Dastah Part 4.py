@@ -3,8 +3,6 @@ import operator
 
 
 def is_tenth_power(n):
-    # # Is integer checks if a float is an integer ex: 10.0 is True, 10.5 is False
-
     if n <= 0:
         return False
     while n % 10 == 0:
@@ -39,20 +37,20 @@ def main(num1, num2):
         return 'Formula Not Applicable'
 
     if num1 < base:
-        # part 1 method
+        # Part 1 method
         right1 = base - num1
         sign1 = operator.sub
     else:
-        # Use part 2 method
+        # Part 2 method
         right1 = num1 - base
         sign1 = operator.add
 
     if num2 < base:
-        # part 1 method
+        # Part 1 method
         right2 = base - num2
         sign2 = operator.sub
     else:
-        # Use part 2 method
+        # Part 2 method
         right2 = num2 - base
         sign2 = operator.add
 
@@ -62,7 +60,7 @@ def main(num1, num2):
     if right_ans == 'Formula Not Applicable':
         return right_ans
 
-    # If something DOESNT fully fall under part 1, then multiply the extra thing
+    # If something DOESN'T fully fall under part 1, then multiply the extra thing
     if not (is_tenth_power(base) and {sign1, sign2} == {operator.sub}):
         left_ans = main(left_ans, int(base / 10))
         if left_ans == 'Formula Not Applicable':
@@ -105,37 +103,3 @@ multiple_table = [[0, 0, 0, 0, 0, 0],
                   [0, 4, 8, 12, 16, 20],
                   [0, 5, 10, 15, 20, 25],
                   ]
-
-
-# print(main(94, 98))
-# print(main(94, 98))
-# exit()
-# ## Manual Testing ##
-# num1 = 8
-# num2 = 2
-
-# try:
-#     ANS = main(num1, num2)
-#     print('ANSWER:  ', ANS)
-#     print('IS IT CORRECT?', int(ANS) == num1 * num2)
-# except RecursionError:
-#     print('ERROR: ', num1, 'x', num2)
-
-# exit()
-## Exahaustive check for equations solved ##
-count = 0
-for i in range(100):
-    for x in range(100):
-        try:
-            # base1, base2 = calculate_base(x, i)
-            ANS = main(x, i)
-            if ANS == 'Formula Not Applicable':
-                pass
-            elif not ANS == x * i:
-                print('NOT EQUAL', x, 'x', i, ANS, 'base:', int(round((int(x) + int(i)) / 2, -1)))
-            else:
-                count += 1
-        except RecursionError:
-            print('ERROR: ', x, 'x', i)
-
-print(count, 'equations solved')
