@@ -8,8 +8,8 @@ multiple_table = [[0, 0, 0, 0, 0, 0],
                   ]
 
 ## Manual Testing ##
-num1 =
-num2 =
+num1 = 
+num2 = 
 
 try:
     ANS = main(num1, num2)
